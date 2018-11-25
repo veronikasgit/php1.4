@@ -1,15 +1,14 @@
 
 <?php
 
-    if (!empty($argv[1]) && $argv[1] === '--today') {
+    if ($argv[1] === "--today") {
 
         $d = date('Y-m-d');
      
-        if (!file_exists('file.csv')) die ('Ошибка, отсутствует файл с расходами!');
-        $f = fopen('file.csv', 'rt');
+        $f = fopen("file.csv", "rt")  or die ("Ошибка!");
 
         $sum = [];
-        for ($i=0; $data = fgetcsv($f,1000,','); $i++) {
+        for ($i=0; $data = fgetcsv($f,1000,","); $i++) {
           
             if ($data[0] === date('Y-m-d')) {
             $price[] = $data[1];     
@@ -19,12 +18,12 @@
           
         }
 
-        echo "$d расход за день: " . $sum . '.00';
+        echo "$d расход за день: " . $sum . ".00";
 
         fclose($f);
 
     } elseif (empty($argv[1]) || empty($argv[2])) {
-        echo 'Ошибка! Аргументы не заданы. Укажите флаг --today или запустите скрипт с аргументами {цена} и {описание покупки}';
+        echo "Ошибка! Аргументы не заданы. Укажите флаг --today или запустите скрипт с аргументами {цена} и {описание покупки}";
 
     } else {
  
