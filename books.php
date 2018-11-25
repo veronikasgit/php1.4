@@ -1,5 +1,7 @@
 <?php
 
+if (empty($argv[1])) { die('Ошибка - отсутствует название книги'); }
+
 $query_array = array_slice($argv, 1);
 $query_string = implode(' ', $query_array);
 $query = urlencode($query_string);
@@ -40,7 +42,7 @@ switch (json_last_error()) {
                 "title" => $json['items'][$i]['volumeInfo']['title']
             ];
 
-            if ($json['items'][$i]['volumeInfo']['authors'] != false) {
+            if (!empty($json['items'][$i]['volumeInfo']['authors'])) {
 
                 foreach ($json['items'][$i]['volumeInfo']['authors'] as $value) {
                   $csv[$i]['authors'] = $value;

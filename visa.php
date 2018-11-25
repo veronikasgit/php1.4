@@ -1,11 +1,15 @@
 <?php 
+if (empty($argv[1])) 
+    { 
+        die('Ошибка - отсутствует название страны'); 
+    }
 
 print_r($argv);
 
-$f = fopen("https://data.gov.ru/opendata/7704206201-country/data-20180609T0649-structure-20180609T0649.csv?encoding=UTF-8", "r") or die ("Ошибка!");
+$f = fopen('https://data.gov.ru/opendata/7704206201-country/data-20180609T0649-structure-20180609T0649.csv?encoding=UTF-8', 'r') or die ('Ошибка!');
 
 $i=0;
-while(($data = fgetcsv($f, 1000, ",")) !== FALSE)  {
+while(($data = fgetcsv($f, 1000, ',')) !== FALSE)  {
 
     $arr[] = $data;
     $i++;
@@ -62,7 +66,7 @@ foreach ($arr as $key => $value) {
                 	echo "$value[1]: $value[4]";			
                 	break;
                 } elseif (($key == ($num - 1)) || ($value[1] === $argv[1]))  {
-                	echo "Ошибка! Название страны введено некорректно!";
+                	echo 'Ошибка! Название страны введено некорректно!';
                 }
             }
         }
